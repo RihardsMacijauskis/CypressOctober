@@ -13,7 +13,7 @@ import { ProductsPage } from "../../pageObjects/productsPage";
 describe("Adding and Removing items from the products screen", () => {
   it("Adding first item visible to the cart", () => {
     LoginPage.loginStandardUserWithoutUI(
-        "https://www.saucedemo.com/inventory.html"
+      "https://www.saucedemo.com/inventory.html"
     );
     ProductsPage.addFirstItemToCart();
     ProductsPage.verifyAddedItemAmount(1);
@@ -22,7 +22,7 @@ describe("Adding and Removing items from the products screen", () => {
   });
 
   it("Removing items from the cart", () => {
-    ProductsPage.setupCartForTests();
+    ProductsPage.setupCartForTests("[0,1,2,3,4,5]");
     LoginPage.loginStandardUserWithoutUI("https://www.saucedemo.com/cart.html");
     ProductsPage.removeItemsFromCart();
     ProductsPage.verifyCartIsEmpty();
@@ -30,38 +30,46 @@ describe("Adding and Removing items from the products screen", () => {
 
   it("Sorting items visible in the products screen - Low To High", () => {
     LoginPage.loginStandardUserWithoutUI(
-        "https://www.saucedemo.com/inventory.html"
+      "https://www.saucedemo.com/inventory.html"
     );
-    ProductsPage.selectSortingOption("lohi")
-    ProductsPage.verifyLowToHighPrices()
-  })
+    ProductsPage.selectSortingOption("lohi");
+    ProductsPage.verifyLowToHighPrices();
+  });
 
   it("Sorting items visible in the products screen - High To Low", () => {
     LoginPage.loginStandardUserWithoutUI(
-        "https://www.saucedemo.com/inventory.html"
+      "https://www.saucedemo.com/inventory.html"
     );
-    ProductsPage.selectSortingOption("hilo")
-    ProductsPage.verifyHighToLowPrices()
-  })
+    ProductsPage.selectSortingOption("hilo");
+    ProductsPage.verifyHighToLowPrices();
+  });
 
   it("Checking out with some items added to the cart", () => {
-    ProductsPage.setupCartForTests();
+    ProductsPage.setupCartForTests("[0,1,2,3,4,5]");
     LoginPage.loginStandardUserWithoutUI("https://www.saucedemo.com/cart.html");
-    ProductsPage.clickOnCheckoutButton()
-    ProductsPage.inputShippingDetails("bob")
-    ProductsPage.clickonContinueButton()
-    ProductsPage.clickOnFinishButton()
-    ProductsPage.verifyThankYouScreen()
-  })
+    ProductsPage.clickOnCheckoutButton();
+    ProductsPage.inputShippingDetails("bob");
+    ProductsPage.clickonContinueButton();
+    ProductsPage.clickOnFinishButton();
+    ProductsPage.verifyThankYouScreen();
+  });
 
   it("Postal code is required error during checkout", () => {
-    ProductsPage.setupCartForTests();
+    ProductsPage.setupCartForTests("[0,1,2,3,4,5]");
     LoginPage.loginStandardUserWithoutUI("https://www.saucedemo.com/cart.html");
-    ProductsPage.clickOnCheckoutButton()
-    ProductsPage.inputShippingDetails("alice")
-    ProductsPage.clickonContinueButton()
-    ProductsPage.clickonContinueButton()
-    LoginPage.verifyErrorMessage("Error: Postal Code is required")
-  })
-})
+    ProductsPage.clickOnCheckoutButton();
+    ProductsPage.inputShippingDetails("alice");
+    ProductsPage.clickonContinueButton();
+    ProductsPage.clickonContinueButton();
+    LoginPage.verifyErrorMessage("Error: Postal Code is required");
+  });
 
+  it("Total price calculation during checkout", () => {
+    ProductsPage.setupCartForTests("[0,1,2,3,4,5]");
+    LoginPage.loginStandardUserWithoutUI("https://www.saucedemo.com/cart.html");
+    ProductsPage.clickOnCheckoutButton();
+    ProductsPage.inputShippingDetails("bob");
+    ProductsPage.clickonContinueButton();
+    ProductsPage.verifyTotalPrice();
+  });
+});

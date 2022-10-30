@@ -21,10 +21,6 @@ export class LoginPage extends BasePage {
     this.click(LOGIN_BUTTON);
   }
 
-  static inputPassword(password) {
-    this.type(PASSWORD_FIELD, password);
-  }
-
   static inputUsername(username) {
     this.type(USER_NAME_FIELD, username);
   }

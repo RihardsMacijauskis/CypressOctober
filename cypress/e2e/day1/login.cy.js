@@ -1,5 +1,5 @@
 import { ProductsPage } from "../../pageObjects/productsPage";
-import { loginPage } from "../../pageObjects/loginPage";
+import { LoginPage } from "../../pageObjects/loginPage";
 import { BasePage } from "../../pageObjects/basePage";
 
 describe("Login test cases", () => {
@@ -22,13 +22,13 @@ describe("Login test cases", () => {
   });
 
   it("Logging in with a valid user", () => {
-    loginPage.inputLoginDataAndLogin("standard_user", "secret_sauce");
+    LoginPage.inputLoginDataAndLogin("standard_user", "secret_sauce");
     ProductsPage.checkIfContainerVisible();
   });
 
   it("Logging in with an invalid user", () => {
-    loginPage.inputLoginDataAndLogin("standard_user", "secret----sauce");
-    loginPage.verifyErrorMessage(
+    LoginPage.inputLoginDataAndLogin("standard_user", "secret----sauce");
+    LoginPage.verifyErrorMessage(
       "Epic sadface: Username and password do not match any user in this service"
     );
     cy.get("[data-test=error]").should(
@@ -38,23 +38,25 @@ describe("Login test cases", () => {
   });
 
   it("Logging in with a locked out user", () => {
-    loginPage.inputLoginDataAndLogin("locked_out_user", "secret_sauce");
-    loginPage.verifyErrorMessage(
+    LoginPage.inputLoginDataAndLogin("locked_out_user", "secret_sauce");
+    LoginPage.verifyErrorMessage(
       "Epic sadface: Sorry, this user has been locked out."
     );
     ProductsPage.verifyContainerNotExisting();
   });
 
   it("Closing error message when no password is entered", () => {
-    loginPage.inputUsername("standard_user");
-    loginPage.clickLoginButton();
-    loginPage.verifyErrorMessage("Epic sadface: Password is required");
-    loginPage.closeAndVerifyErrorMessage();
+    LoginPage.inputUsername("standard_user");
+    LoginPage.clickLoginButton();
+    LoginPage.verifyErrorMessage("Epic sadface: Password is required");
+    LoginPage.closeAndVerifyErrorMessage();
   });
 
   it("Logging in without using the UI and just using the cookies", () => {
     //Example of Cypress commands
-    BasePage.loginStandardUserWithoutUI();
+    BasePage.loginStandardUserWithoutUI(
+      "https://www.saucedemo.com/inventory.html"
+    );
     ProductsPage.checkIfContainerVisible();
   });
 });
