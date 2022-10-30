@@ -1,0 +1,11 @@
+{
+  "bob": {
+    "firstName": "Bob",
+    "lastName": "Foo",
+    "postCode": "1222"
+  },
+  "alice": {
+    "firstName": "John",
+    "lastName": "Foo"
+  }
+}
