@@ -4,6 +4,7 @@
     "prettier": "^2.7.1"
   },
   "scripts": {
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "prettier": "prettier --write ."
   }
 }

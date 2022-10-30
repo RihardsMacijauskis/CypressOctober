@@ -25,6 +25,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add("loginStandardUser", () => {
-    cy.setCookie("session-username", "standard_user")
-    cy.visit("https://www.saucedemo.com/inventory.html", {failOnStatusCode: false})
-})
+  cy.setCookie("session-username", "standard_user");
+  cy.visit("https://www.saucedemo.com/inventory.html", {
+    failOnStatusCode: false,
+  });
+});
