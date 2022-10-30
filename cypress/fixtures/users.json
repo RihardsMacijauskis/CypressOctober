@@ -2,10 +2,10 @@
   "bob": {
     "firstName": "Bob",
     "lastName": "Foo",
-    "postCode": "1222"
+    "postCode": "1337"
   },
   "alice": {
     "firstName": "John",
-    "lastName": "Foo"
+    "lastName": "Wick"
   }
 }
